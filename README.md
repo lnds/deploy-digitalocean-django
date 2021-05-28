@@ -11,13 +11,14 @@ Se han modificado las instrucciones para reflejar la actual UI de Digital Ocean 
 1. Click en "Launch Your App" o "Create App"
 1. Elegir GitHub y autenticarse con las credenciales de GitHub.
 1. Bajo Repository, elegir este repository (e.g. `<your-org>/deploy-digitalocean-django`), elegir la rama (branch) main, marcar la checkbox que dice autodeploy code changes y click en **Next**.
-1. En la siguiente pantalla aparecen los parámetros de configuracion de la app. En este punto debes hacer click en "Edit" al lado de donde dice "Environment Variables" y agregar lo siguiente:
+1. En la siguiente pantalla aparecen los parámetros de configuracion de la app. En este punto debes hacer click en "Edit" al lado de donde dice "Environment Variables":
+   1. Al expandirse esta sección agregar lo siguiente:
         1. Si quieres lanzar la app en modo de depuración define `DEBUG` a `True`
         1. Setear `DJANGO_ALLOWED_HOSTS` a `${APP_DOMAIN}` para permitir que  `allowed_hosts` apunte al dominio default provisto por DigitalOcean.
         1. Setear `DATABASE_URL` a `${<YOUR_DB_NAME>.DATABASE_URL}`. Vamos a setear el nombre de la base de datos en un próximo paso. Por simplicidad lo llamaremos  `db` asi que esta variable debería verse así: `${db.DATABASE_URL}`
         1. Hay más información sobre las variables de ambiente [aquí](#variables-de-ambiente).  
 1. Modifica el **Run Command** para apuntar a la aplicación. En este ejemplo, el proyect se llama `mysite`. Así que el comando modificado debería ser `gunicorn --worker-tmp-dir /dev/shm mysite.wsgi`. 
-1. Haz click en **"Add Database"**, aparece una popup, asegurate que Choose Name contenga el valor `db` y haz click en el botón azul que dice "Add Database". Esto genera una base de datos Posgresql. Luego haz click en el botón **Next**.
+1. Haz click en **"Add Database"**, aparece una popup, asegurate que Choose Name contenga el valor `db` y haz click en el botón azul que dice "Add Database". Esto genera una base de datos Postgresql. Luego haz click en el botón **Next**.
 1. Luego aparece una pantalla solicitando nombrar el servicio web, acá pueden cambiar el nombre que tendrá la aplicación. Tambien eligen la región, dejaremos "New York" y presionamos **Next**.
 1. Luego sale una pantalla con el título **Finalize and launch**. Seleccionamos la opción **Basic** y presinona el botón que dice  **Launch Basic/Pro App**.
 1. Verás un mensaje "Building..." con un indicado de progreso. Si haces click en  "Deployments"→"Details" puedes ver más detalles del proceso de "building".
